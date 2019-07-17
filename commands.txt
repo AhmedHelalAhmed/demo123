@@ -1,0 +1,87 @@
+composer create-project --prefer-dist laravel/laravel blog
+
+php artisan make:auth
+
+php artisan config:cache
+
+php artisan migrate
+
+php artisan make:model -m Post
+
+php artisan make:model -m Comment
+
+php artisan make:controller PostsController --resource
+
+php artisan storage:link
+
+use SoftDeletes;
+
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+//************************************************************************
+@if(Session::has('message'))
+    <p
+        class="alert alert-dismissible
+        {{ Session::get('alert-class', 'alert-info') }}">
+        {{ Session::get('message') }}
+        <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-hidden="true">×
+        </button>
+    </p>
+    <span style="display: none">{{  Session::forget('message') }}</span>
+@endif
+@if ($errors->any())
+    <div class="alert alert-danger">
+        Please correct the following error(s):
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+//************************************************************************
+
+@method('PUT')
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+// in controller
+
+ if($request->hasFile('photo'))
+{
+    $path=Storage::putFile('public/posts_photos', $request->file('photo'));
+
+    $input['photo']=str_replace('public', 'storage', $path);
+}
+
+// in view
+url("$post->photo")
+
+
+public function getCreatedAtAttribute($value)
+{
+if ($value)
+{
+    return Carbon ::parse($value) -> diffForHumans();
+}
+
+return $value;
+}
+
+'title' => ['required', 'string', 'max:255'],
+'expiration_period' => ['required', 'integer'],
+'user_id' => ['required','exists:users,id'],
+
+// resources
+
+https://developer.mozilla.org/en-US/docs/Web
+https://www.w3schools.com/
+https://www.sololearn.com/
+https://stackoverflow.com/
+https://php.net/
+https://laracasts.com/
+https://laravel.com/
